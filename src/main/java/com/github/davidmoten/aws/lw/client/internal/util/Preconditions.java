@@ -7,24 +7,18 @@ public final class Preconditions {
     }
 
     public static <T> T checkNotNull(T t) {
-        return checkNotNull(t, "argument cannot be null");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static <T> T checkNotNull(T t, String message) {
-        if (t == null) {
-            throw new IllegalArgumentException(message);
-        }
-        return t;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static void checkArgument(boolean b, String message) {
-        if (!b)
-            throw new IllegalArgumentException(message);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static void checkArgument(boolean b) {
-        if (!b)
-            throw new IllegalArgumentException();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

@@ -25,9 +25,7 @@
  *
  *  3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************/
-
 // ALTERED greatly by Dave Moten May 2021
-
 package com.github.davidmoten.aws.lw.client.xml;
 
 import java.io.ByteArrayOutputStream;
@@ -47,7 +45,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import com.github.davidmoten.aws.lw.client.internal.util.Preconditions;
 
 /* 
@@ -56,7 +53,6 @@ import com.github.davidmoten.aws.lw.client.internal.util.Preconditions;
  * the NanoXML authors.
  *  
  **/
-
 /* XmlElement.java
 *
 * $Revision: 1.4 $
@@ -84,23 +80,24 @@ import com.github.davidmoten.aws.lw.client.internal.util.Preconditions;
 *
 *  3. This notice may not be removed or altered from any source distribution.
 *****************************************************************************/
-
 public final class XmlElement {
 
     private List<XmlElement> children;
+
     private Map<String, String> attributes;
+
     private String name;
 
     /**
      * The #PCDATA content of the object. null if no #PCDATA, can be empty string
      */
-    private String content; // non-null
+    // non-null
+    private String content;
 
     private static final Map<String, char[]> ENTITIES = createEntities();
 
     /**
      * The line number where the element starts.
-     *
      */
     private int lineNr;
 
@@ -137,57 +134,43 @@ public final class XmlElement {
     }
 
     public void addChild(XmlElement child) {
-        children.add(child);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public int countChildren() {
-        return children.size();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public boolean hasChildren() {
-        return !children.isEmpty();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Set<String> attributeNames() {
-        return attributes.keySet();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public List<XmlElement> children() {
-        return children;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public List<XmlElement> childrenWithName(String name) {
-        return children.stream().filter(x -> name.equals(x.name())).collect(Collectors.toList());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public XmlElement firstChild() {
-        return children.get(0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public XmlElement child(int index) {
-        return children.get(index);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public XmlElement child(String... names) {
-        XmlElement x = this;
-        XmlElement y = null;
-        for (String name : names) {
-            for (XmlElement child : x.children) {
-                if (child.name().equals(name)) {
-                    y = child;
-                }
-            }
-            if (y == null) {
-                throw new NoSuchElementException("child not found with name: " + name);
-            } else {
-                x = y;
-            }
-        }
-        return y;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public String content(String... names) {
-        return child(names).content();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -195,7 +178,7 @@ public final class XmlElement {
      * <CODE>null</CODE> is returned.
      */
     public String content() {
-        return this.content;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -203,7 +186,7 @@ public final class XmlElement {
      * method returns <code>0</code> there is no associated source data.
      */
     public int lineNumber() {
-        return this.lineNr;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -213,7 +196,7 @@ public final class XmlElement {
      * @param name The name of the attribute.
      */
     public String attribute(String name) {
-        return this.attribute(name, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -224,27 +207,22 @@ public final class XmlElement {
      * @param defaultValue Key to use if the attribute is missing.
      */
     public String attribute(String name, String defaultValue) {
-        Preconditions.checkNotNull(name);
-        return this.attributes.getOrDefault(name, defaultValue);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Returns the name of the element.
      */
     public String name() {
-        return this.name;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static XmlElement parse(Reader reader) throws XmlParseException, IOException {
-        return parse(reader, true);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    public static XmlElement parse(Reader reader, boolean ignoreLeadingAndTrailingWhitespace)
-            throws IOException, XmlParseException {
-        Preconditions.checkNotNull(reader);
-        XmlElement x = new XmlElement(ignoreLeadingAndTrailingWhitespace);
-        x.parseFromReader(reader);
-        return x;
+    public static XmlElement parse(Reader reader, boolean ignoreLeadingAndTrailingWhitespace) throws IOException, XmlParseException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private void parseFromReader(Reader reader) throws IOException, XmlParseException {
@@ -256,16 +234,12 @@ public final class XmlElement {
         this.charReadTooMuch = '\0';
         this.reader = reader;
         this.parserLineNr = 1;
-
-        for (;;) {
+        for (; ; ) {
             char ch = this.scanWhitespace();
-
             if (ch != '<') {
                 throw this.createUnexpectedInputException("<");
             }
-
             ch = this.readChar();
-
             if ((ch == '!') || (ch == '?')) {
                 this.skipSpecialTag(0);
             } else {
@@ -277,23 +251,16 @@ public final class XmlElement {
     }
 
     public static XmlElement parse(String string) throws XmlParseException {
-        return parse(string, true);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    public static XmlElement parse(String string, boolean ignoreLeadingAndTrailingWhitespace)
-            throws XmlParseException {
-        Preconditions.checkNotNull(string);
-        return parseUnchecked(new StringReader(string), ignoreLeadingAndTrailingWhitespace);
+    public static XmlElement parse(String string, boolean ignoreLeadingAndTrailingWhitespace) throws XmlParseException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // VisibleForTesting
-    static XmlElement parseUnchecked(Reader reader, boolean ignoreLeadingAndTrailingWhitespace)
-            throws XmlParseException {
-        try {
-            return parse(reader, ignoreLeadingAndTrailingWhitespace);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+    static XmlElement parseUnchecked(Reader reader, boolean ignoreLeadingAndTrailingWhitespace) throws XmlParseException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private XmlElement createAnotherElement() {
@@ -301,122 +268,68 @@ public final class XmlElement {
     }
 
     public String toString() {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        OutputStreamWriter writer = new OutputStreamWriter(out, StandardCharsets.UTF_8);
-        writeUnchecked(writer);
-        return new String(out.toByteArray(), StandardCharsets.UTF_8);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // visible for testing
     void writeUnchecked(Writer writer) {
-        try {
-            this.write(writer);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        } finally {
-            try {
-                writer.close();
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void write(Writer writer) throws IOException {
-        Preconditions.checkNotNull(writer);
-        Preconditions.checkNotNull(name);
-        Preconditions.checkNotNull(content);
-//        if (this.name == null) {
-//            writeEncoded(writer, this.content);
-//            return;
-//        }
-        writer.write('<');
-        writer.write(this.name);
-        if (!this.attributes.isEmpty()) {
-            Enumeration<String> en = Collections.enumeration(this.attributes.keySet());
-            while (en.hasMoreElements()) {
-                writer.write(' ');
-                String key = (String) en.nextElement();
-                String value = (String) this.attributes.get(key);
-                writer.write(key);
-                writer.write('=');
-                writer.write('"');
-                writeEncoded(writer, value);
-                writer.write('"');
-            }
-        }
-        if (!content.isEmpty()) {
-            writer.write('>');
-            writeEncoded(writer, this.content);
-            writer.write('<');
-            writer.write('/');
-            writer.write(this.name);
-            writer.write('>');
-        } else if (children.isEmpty()) {
-            writer.write('/');
-            writer.write('>');
-        } else {
-            writer.write('>');
-            for (XmlElement child : children) {
-                child.write(writer);
-            }
-            writer.write('<');
-            writer.write('/');
-            writer.write(this.name);
-            writer.write('>');
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static void writeEncoded(Writer writer, String str) throws IOException {
         for (int i = 0; i < str.length(); i += 1) {
             char ch = str.charAt(i);
-            switch (ch) {
-            case '<':
-                writer.write('&');
-                writer.write('l');
-                writer.write('t');
-                writer.write(';');
-                break;
-            case '>':
-                writer.write('&');
-                writer.write('g');
-                writer.write('t');
-                writer.write(';');
-                break;
-            case '&':
-                writer.write('&');
-                writer.write('a');
-                writer.write('m');
-                writer.write('p');
-                writer.write(';');
-                break;
-            case '"':
-                writer.write('&');
-                writer.write('q');
-                writer.write('u');
-                writer.write('o');
-                writer.write('t');
-                writer.write(';');
-                break;
-            case '\'':
-                writer.write('&');
-                writer.write('a');
-                writer.write('p');
-                writer.write('o');
-                writer.write('s');
-                writer.write(';');
-                break;
-            default:
-                int unicode = (int) ch;
-                if ((unicode < 32) || (unicode > 126)) {
+            switch(ch) {
+                case '<':
                     writer.write('&');
-                    writer.write('#');
-                    writer.write('x');
-                    writer.write(Integer.toString(unicode, 16));
+                    writer.write('l');
+                    writer.write('t');
                     writer.write(';');
-                } else {
-                    writer.write(ch);
-                }
+                    break;
+                case '>':
+                    writer.write('&');
+                    writer.write('g');
+                    writer.write('t');
+                    writer.write(';');
+                    break;
+                case '&':
+                    writer.write('&');
+                    writer.write('a');
+                    writer.write('m');
+                    writer.write('p');
+                    writer.write(';');
+                    break;
+                case '"':
+                    writer.write('&');
+                    writer.write('q');
+                    writer.write('u');
+                    writer.write('o');
+                    writer.write('t');
+                    writer.write(';');
+                    break;
+                case '\'':
+                    writer.write('&');
+                    writer.write('a');
+                    writer.write('p');
+                    writer.write('o');
+                    writer.write('s');
+                    writer.write(';');
+                    break;
+                default:
+                    int unicode = (int) ch;
+                    if ((unicode < 32) || (unicode > 126)) {
+                        writer.write('&');
+                        writer.write('#');
+                        writer.write('x');
+                        writer.write(Integer.toString(unicode, 16));
+                        writer.write(';');
+                    } else {
+                        writer.write(ch);
+                    }
             }
         }
     }
@@ -428,7 +341,7 @@ public final class XmlElement {
      * @param result The buffer in which the scanned identifier will be put.
      */
     private void scanIdentifier(StringBuilder result) throws IOException {
-        for (;;) {
+        for (; ; ) {
             char ch = this.readChar();
             if (!isValidIdentifierCharacter(ch)) {
                 this.unreadChar(ch);
@@ -440,14 +353,7 @@ public final class XmlElement {
 
     // VisibleForTesting
     static boolean isValidIdentifierCharacter(char ch) {
-        return ((ch >= 'A') && (ch <= 'Z')) || //
-                ((ch >= 'a') && (ch <= 'z')) || //
-                ((ch >= '0') && (ch <= '9')) || //
-                (ch == '_') || //
-                (ch == '.') || //
-                (ch == ':') || //
-                (ch == '-') || //
-                (ch > '\u007E');
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -456,16 +362,16 @@ public final class XmlElement {
      * @return the next character following the whitespace.
      */
     private char scanWhitespace() throws IOException {
-        for (;;) {
+        for (; ; ) {
             char ch = this.readChar();
-            switch (ch) {
-            case ' ':
-            case '\t':
-            case '\n':
-            case '\r':
-                break;
-            default:
-                return ch;
+            switch(ch) {
+                case ' ':
+                case '\t':
+                case '\n':
+                case '\r':
+                    break;
+                default:
+                    return ch;
             }
         }
     }
@@ -477,17 +383,17 @@ public final class XmlElement {
      * @return the next character following the whitespace.
      */
     private char scanWhitespace(StringBuilder result) throws IOException {
-        for (;;) {
+        for (; ; ) {
             char ch = this.readChar();
-            switch (ch) {
-            case ' ':
-            case '\t':
-            case '\n':
-                result.append(ch);
-            case '\r':
-                break;
-            default:
-                return ch;
+            switch(ch) {
+                case ' ':
+                case '\t':
+                case '\n':
+                    result.append(ch);
+                case '\r':
+                    break;
+                default:
+                    return ch;
             }
         }
     }
@@ -501,7 +407,7 @@ public final class XmlElement {
         if ((delimiter != '\'') && (delimiter != '"')) {
             throw this.createUnexpectedInputException("' or \"");
         }
-        for (;;) {
+        for (; ; ) {
             char ch = this.readChar();
             if (ch == delimiter) {
                 return;
@@ -518,12 +424,11 @@ public final class XmlElement {
      * &lt; char is skipped. The scanned data is appended to <code>data</code>.
      */
     private void scanPCData(StringBuilder data) throws IOException {
-        for (;;) {
+        for (; ; ) {
             char ch = this.readChar();
             if (ch == '<') {
-
-//              System.out.println("ch="+ ch + ", rest="+ readAll());
-//              if (true) throw new RuntimeException();
+                //              System.out.println("ch="+ ch + ", rest="+ readAll());
+                //              if (true) throw new RuntimeException();
                 ch = this.readChar();
                 if (ch == '!') {
                     this.checkCDATA(data);
@@ -550,39 +455,40 @@ public final class XmlElement {
             this.skipSpecialTag(0);
             return false;
         } else if (!this.checkLiteral("CDATA[")) {
-            this.skipSpecialTag(1); // one [ has already been read
+            // one [ has already been read
+            this.skipSpecialTag(1);
             return false;
         } else {
             int delimiterCharsSkipped = 0;
             while (delimiterCharsSkipped < 3) {
                 ch = this.readChar();
-                switch (ch) {
-                case ']':
-                    if (delimiterCharsSkipped < 2) {
-                        delimiterCharsSkipped += 1;
-                    } else {
-                        buf.append(']');
-                        buf.append(']');
-                        delimiterCharsSkipped = 0;
-                    }
-                    break;
-                case '>':
-                    if (delimiterCharsSkipped < 2) {
-                        for (int i = 0; i < delimiterCharsSkipped; i++) {
+                switch(ch) {
+                    case ']':
+                        if (delimiterCharsSkipped < 2) {
+                            delimiterCharsSkipped += 1;
+                        } else {
+                            buf.append(']');
+                            buf.append(']');
+                            delimiterCharsSkipped = 0;
+                        }
+                        break;
+                    case '>':
+                        if (delimiterCharsSkipped < 2) {
+                            for (int i = 0; i < delimiterCharsSkipped; i++) {
+                                buf.append(']');
+                            }
+                            delimiterCharsSkipped = 0;
+                            buf.append('>');
+                        } else {
+                            delimiterCharsSkipped = 3;
+                        }
+                        break;
+                    default:
+                        for (int i = 0; i < delimiterCharsSkipped; i += 1) {
                             buf.append(']');
                         }
+                        buf.append(ch);
                         delimiterCharsSkipped = 0;
-                        buf.append('>');
-                    } else {
-                        delimiterCharsSkipped = 3;
-                    }
-                    break;
-                default:
-                    for (int i = 0; i < delimiterCharsSkipped; i += 1) {
-                        buf.append(']');
-                    }
-                    buf.append(ch);
-                    delimiterCharsSkipped = 0;
                 }
             }
             return true;
@@ -614,7 +520,8 @@ public final class XmlElement {
      *                     been read.
      */
     private void skipSpecialTag(int bracketLevel) throws IOException {
-        int tagLevel = 1; // <
+        // <
+        int tagLevel = 1;
         char stringDelimiter = '\0';
         if (bracketLevel == 0) {
             char ch = this.readChar();
@@ -728,7 +635,7 @@ public final class XmlElement {
             this.unreadChar(ch);
             this.scanPCData(buf);
         } else {
-            for (;;) {
+            for (; ; ) {
                 ch = this.readChar();
                 if (ch == '!') {
                     if (this.checkCDATA(buf)) {
@@ -790,7 +697,6 @@ public final class XmlElement {
             throw this.createUnexpectedInputException("/");
         }
         this.unreadChar(this.scanWhitespace());
-
         if (!this.checkLiteral(name)) {
             throw this.createUnexpectedInputException(name);
         }
@@ -800,19 +706,18 @@ public final class XmlElement {
     }
 
     // for debugging
-//    private String readAll() {
-//        StringBuilder b = new StringBuilder();
-//        int c;
-//        try {
-//            while ((c = reader.read()) != -1) {
-//                b.append((char) c);
-//            }
-//        } catch (IOException e) {
-//            throw new UncheckedIOException(e);
-//        }
-//        return b.toString();
-//    }
-
+    //    private String readAll() {
+    //        StringBuilder b = new StringBuilder();
+    //        int c;
+    //        try {
+    //            while ((c = reader.read()) != -1) {
+    //                b.append((char) c);
+    //            }
+    //        } catch (IOException e) {
+    //            throw new UncheckedIOException(e);
+    //        }
+    //        return b.toString();
+    //    }
     /**
      * Resolves an entity. The name of the entity is read from the reader. The value
      * of the entity is appended to <code>buf</code>.
@@ -822,7 +727,7 @@ public final class XmlElement {
     private void resolveEntity(StringBuilder buf) throws IOException {
         char ch = '\0';
         StringBuilder keyBuf = new StringBuilder();
-        for (;;) {
+        for (; ; ) {
             ch = this.readChar();
             if (ch == ';') {
                 break;
@@ -887,12 +792,11 @@ public final class XmlElement {
 
     private static Map<String, char[]> createEntities() {
         Map<String, char[]> map = new HashMap<>();
-        map.put("amp", new char[] {'&'});
-        map.put("quot", new char[] {'"'});
-        map.put("apos", new char[] {'\''});
-        map.put("lt", new char[] {'<'});
-        map.put("gt", new char[] {'>'});
+        map.put("amp", new char[] { '&' });
+        map.put("quot", new char[] { '"' });
+        map.put("apos", new char[] { '\'' });
+        map.put("lt", new char[] { '<' });
+        map.put("gt", new char[] { '>' });
         return map;
     }
-
 }

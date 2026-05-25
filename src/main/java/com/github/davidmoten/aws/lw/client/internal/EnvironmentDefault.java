@@ -11,7 +11,6 @@ public final class EnvironmentDefault implements Environment {
 
     @Override
     public String get(String name) {
-        return System.getenv(name);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

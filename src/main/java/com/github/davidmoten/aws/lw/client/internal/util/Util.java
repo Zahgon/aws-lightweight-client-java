@@ -26,33 +26,12 @@ public final class Util {
         // prevent instantiation
     }
 
-    public static HttpURLConnection createHttpConnection(URL endpointUrl, String httpMethod,
-            Map<String, String> headers, int connectTimeoutMs, int readTimeoutMs) throws IOException {
-        Preconditions.checkNotNull(headers);
-        HttpURLConnection connection = (HttpURLConnection) endpointUrl.openConnection();
-        connection.setRequestMethod(httpMethod);
-
-        for (Entry<String, String> entry : headers.entrySet()) {
-            connection.setRequestProperty(entry.getKey(), entry.getValue());
-        }
-
-        connection.setUseCaches(false);
-        connection.setDoInput(true);
-        connection.setDoOutput(true);
-        connection.setConnectTimeout(connectTimeoutMs);
-        connection.setReadTimeout(readTimeoutMs);
-        return connection;
+    public static HttpURLConnection createHttpConnection(URL endpointUrl, String httpMethod, Map<String, String> headers, int connectTimeoutMs, int readTimeoutMs) throws IOException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static String canonicalMetadataKey(String meta) {
-        StringBuilder b = new StringBuilder();
-        String s = meta.toLowerCase(Locale.ENGLISH);
-        for (int ch : s.toCharArray()) {
-            if (Character.isDigit(ch) || Character.isAlphabetic(ch)) {
-                b.append((char) ch);
-            }
-        }
-        return b.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -63,160 +42,55 @@ public final class Util {
      * @return hex-encoded string.
      */
     public static String toHex(byte[] data) {
-        StringBuilder sb = new StringBuilder(data.length * 2);
-        for (int i = 0; i < data.length; i++) {
-            String hex = Integer.toHexString(data[i]);
-            if (hex.length() == 1) {
-                // Append leading zero.
-                sb.append("0");
-            } else if (hex.length() == 8) {
-                // Remove ff prefix from negative numbers.
-                hex = hex.substring(6);
-            }
-            sb.append(hex);
-        }
-        return sb.toString().toLowerCase(Locale.getDefault());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static URL toUrl(String url) {
-        try {
-            return new URL(url);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static String urlEncode(String url, boolean keepPathSlash) {
-        return urlEncode(url, keepPathSlash, "UTF-8");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // VisibleForTesting
     static String urlEncode(String url, boolean keepPathSlash, String charset) {
-        String encoded;
-        try {
-            encoded = URLEncoder.encode(url, charset).replace("+", "%20").replace("*", "%2A").replace("%7E", "~");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-        if (keepPathSlash) {
-            return encoded.replace("%2F", "/");
-        } else {
-            return encoded;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Hashes the string contents (assumed to be UTF-8) using the SHA-256 algorithm.
      */
     public static byte[] sha256(String text) {
-        return sha256(text.getBytes(StandardCharsets.UTF_8));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static byte[] sha256(byte[] data) {
-        return hash(data, "SHA-256");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // VisibleForTesting
     static byte[] hash(byte[] data, String algorithm) {
-        try {
-            MessageDigest md = MessageDigest.getInstance(algorithm);
-            md.update(data);
-            return md.digest();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static byte[] readBytesAndClose(InputStream in) {
-        try {
-            byte[] buffer = new byte[8192];
-            int n;
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            while ((n = in.read(buffer)) != -1) {
-                bytes.write(buffer, 0, n);
-            }
-            return bytes.toByteArray();
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        } finally {
-            try {
-                in.close();
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static final InputStream EMPTY_INPUT_STREAM = new InputStream() {
+
         @Override
         public int read() throws IOException {
-            return -1;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     };
 
     public static final InputStream emptyInputStream() {
-        return EMPTY_INPUT_STREAM;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static Optional<String> jsonFieldText(String json, String fieldName) {
-        // it is assumed that the json field is valid object json
-        String key = "\"" + fieldName + "\"";
-        int keyPosition = json.indexOf(key);
-        if (keyPosition == -1) {
-            return Optional.empty(); // Field not found
-        }
-
-        // Find the position of the colon after the key and skip any whitespace
-        int colonPosition = json.indexOf(":", keyPosition + key.length());
-        if (colonPosition == -1) {
-            return Optional.empty(); // Colon not found, malformed JSON
-        }
-
-        // Skip whitespace after the colon
-        int valueStart = colonPosition + 1;
-        while (valueStart < json.length() && Character.isWhitespace(json.charAt(valueStart))) {
-            valueStart++;
-        }
-
-        // Check if the value is a string
-        boolean isString = json.charAt(valueStart) == '"';
-        StringBuilder value = new StringBuilder();
-        boolean isEscaped = false;
-
-        // Parse the value, handling escaped quotes
-        for (int i = valueStart + (isString ? 1 : 0); i < json.length(); i++) {
-            char c = json.charAt(i);
-
-            if (isString) {
-                // Handle string value
-                if (isEscaped) {
-                    // Append escaped character and reset flag
-                    value.append(c);
-                    isEscaped = false;
-                } else if (c == '\\') {
-                    // Next character is escaped
-                    isEscaped = true;
-                } else if (c == '"') {
-                    // End of string
-                    break;
-                } else {
-                    value.append(c);
-                }
-            } else {
-                // Handle non-string value
-                if (c == ',' || c == '}') {
-                    // End of non-string value
-                    break;
-                } else {
-                    value.append(c);
-                }
-            }
-        }
-        String v = value.toString().trim();
-        if (!isString && "null".equals(v)) {
-            return Optional.empty();
-        } else {
-            return Optional.of(v);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

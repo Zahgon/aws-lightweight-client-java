@@ -9,11 +9,10 @@ public interface Environment {
     String get(String name);
 
     default Credentials credentials() {
-        return CredentialsHelper.credentialsFromEnvironment(this, HttpClient.defaultClient());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     static Environment instance() {
-        return EnvironmentDefault.INSTANCE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

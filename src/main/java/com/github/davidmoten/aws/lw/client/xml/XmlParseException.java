@@ -4,7 +4,6 @@
  * the NanoXML authors.
  *  
  **/
-
 /* XMLParseException.java
  *
  * $Revision: 1.4 $
@@ -32,8 +31,6 @@
  *
  *  3. This notice may not be removed or altered from any source distribution.
  *****************************************************************************/
-
-
 package com.github.davidmoten.aws.lw.client.xml;
 
 /**
@@ -48,21 +45,16 @@ package com.github.davidmoten.aws.lw.client.xml;
  * @author Marc De Scheemaecker
  * @version $Name: RELEASE_2_2_1 $, $Revision: 1.4 $
  */
-public class XmlParseException
-    extends RuntimeException
-{
+public class XmlParseException extends RuntimeException {
 
     /**
-     * 
      */
     private static final long serialVersionUID = 2719032602966457493L;
-
 
     /**
      * Indicates that no line number has been associated with this exception.
      */
     public static final int NO_LINE = -1;
-
 
     /**
      * The line number in the source code where the error occurred, or
@@ -90,26 +82,16 @@ public class XmlParseException
      * <ul><li>getLineNumber() => lineNr
      * </ul></dd></dl><dl>
      */
-    public XmlParseException(String name,
-                             int    lineNumber,
-                             String message)
-    {
-        super("Problem parsing "
-              + ((name == null) ? "the XML definition"
-                                : ("a " + name + " element"))
-              + " at line " + lineNumber + ": " + message);
+    public XmlParseException(String name, int lineNumber, String message) {
+        super("Problem parsing " + ((name == null) ? "the XML definition" : ("a " + name + " element")) + " at line " + lineNumber + ": " + message);
         this.lineNumber = lineNumber;
     }
-
 
     /**
      * Where the error occurred, or <code>NO_LINE</code> if the line number is
      * unknown.
-     *
      */
-    public int lineNumber()
-    {
-        return this.lineNumber;
+    public int lineNumber() {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

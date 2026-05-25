@@ -11,57 +11,50 @@ import java.util.stream.Collectors;
 
 public final class ResponseInputStream extends InputStream {
 
-    private final Closeable closeable; // nullable
+    // nullable
+    private final Closeable closeable;
+
     private final int statusCode;
+
     private final Map<String, List<String>> headers;
+
     private final InputStream content;
 
-    public ResponseInputStream(HttpURLConnection connection, int statusCode,
-            Map<String, List<String>> headers, InputStream content) {
+    public ResponseInputStream(HttpURLConnection connection, int statusCode, Map<String, List<String>> headers, InputStream content) {
         this(() -> connection.disconnect(), statusCode, headers, content);
     }
-    
-    public ResponseInputStream(Closeable closeable, int statusCode,
-            Map<String, List<String>> headers, InputStream content) {
+
+    public ResponseInputStream(Closeable closeable, int statusCode, Map<String, List<String>> headers, InputStream content) {
         this.closeable = closeable;
         this.statusCode = statusCode;
         this.headers = headers;
         this.content = content;
     }
-    
+
     @Override
     public int read(byte[] b, int off, int len) throws IOException {
-        return content.read(b, off, len);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-    
+
     @Override
     public int read() throws IOException {
-        return content.read();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void close() throws IOException {
-        try {
-            content.close();
-        } finally {
-            closeable.close();
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public int statusCode() {
-        return statusCode;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Map<String, List<String>> headers() {
-        return headers;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Optional<String> header(String name) {
-        for (String key : headers.keySet()) {
-            if (name.equalsIgnoreCase(key)) {
-                return Optional.of(headers.get(key).stream().collect(Collectors.joining(",")));
-            }
-        }
-        return Optional.empty();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

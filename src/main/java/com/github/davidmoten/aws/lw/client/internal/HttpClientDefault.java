@@ -8,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
-
 import com.github.davidmoten.aws.lw.client.HttpClient;
 import com.github.davidmoten.aws.lw.client.ResponseInputStream;
 import com.github.davidmoten.aws.lw.client.internal.util.Util;
@@ -21,48 +20,16 @@ public final class HttpClientDefault implements HttpClient {
     }
 
     @Override
-    public ResponseInputStream request(URL endpointUrl, String httpMethod,
-            Map<String, String> headers, byte[] requestBody, int connectTimeoutMs,
-            int readTimeoutMs) throws IOException {
-        HttpURLConnection connection = Util.createHttpConnection(endpointUrl, httpMethod, headers,
-                connectTimeoutMs, readTimeoutMs);
-        return request(connection, requestBody);
+    public ResponseInputStream request(URL endpointUrl, String httpMethod, Map<String, String> headers, byte[] requestBody, int connectTimeoutMs, int readTimeoutMs) throws IOException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // VisibleForTesting
     static ResponseInputStream request(HttpURLConnection connection, byte[] requestBody) {
-        int responseCode;
-        Map<String, List<String>> responseHeaders;
-        InputStream is;
-        try {
-            if (requestBody != null) {
-                OutputStream out = connection.getOutputStream();
-                out.write(requestBody);
-                out.flush();
-            }
-            responseHeaders = connection.getHeaderFields();
-            responseCode = connection.getResponseCode();
-            if (isOk(responseCode)) {
-                is = connection.getInputStream();
-            } else {
-                is = connection.getErrorStream();
-            }
-            if (is == null) {
-                is = Util.emptyInputStream();
-            }
-        } catch (IOException e) {
-            try {
-                connection.disconnect();
-            } catch (Throwable e2) {
-                // ignore
-            }
-            throw new UncheckedIOException(e);
-        }
-        return new ResponseInputStream(connection, responseCode, responseHeaders, is);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static boolean isOk(int responseCode) {
         return responseCode >= 200 && responseCode <= 299;
     }
-
 }

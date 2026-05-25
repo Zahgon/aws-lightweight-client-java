@@ -1,12 +1,11 @@
 package com.github.davidmoten.aws.lw.client;
 
 import java.util.Optional;
-
 import com.github.davidmoten.aws.lw.client.internal.CredentialsImpl;
 import com.github.davidmoten.aws.lw.client.internal.Environment;
 
 public interface Credentials {
-    
+
     String accessKey();
 
     String secretKey();
@@ -14,21 +13,18 @@ public interface Credentials {
     Optional<String> sessionToken();
 
     static Credentials of(String accessKey, String secretKey) {
-        return new CredentialsImpl(accessKey, secretKey, Optional.empty());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-    
+
     static Credentials of(String accessKey, String secretKey, String sessionToken) {
-        return new CredentialsImpl(accessKey, secretKey, Optional.of(sessionToken));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     static Credentials fromEnvironment() {
-        return Environment.instance().credentials();
-    }
-    
-    static Credentials fromSystemProperties() {
-        return new CredentialsImpl(System.getProperty("aws.accessKeyId"),
-                System.getProperty("aws.secretKey"),
-                Optional.empty());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
+    static Credentials fromSystemProperties() {
+        throw new UnsupportedOperationException("STUB: not implemented");
+    }
 }

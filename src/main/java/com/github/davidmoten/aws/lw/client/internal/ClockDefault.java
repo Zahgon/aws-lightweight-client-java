@@ -4,7 +4,6 @@ public final class ClockDefault implements Clock {
 
     @Override
     public long time() {
-        return System.currentTimeMillis();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

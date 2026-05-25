@@ -12,7 +12,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
-
 import com.github.davidmoten.aws.lw.client.internal.Retries;
 import com.github.davidmoten.aws.lw.client.internal.util.Preconditions;
 
@@ -23,19 +22,25 @@ public final class Multipart {
     }
 
     public static Builder s3(Client s3) {
-        Preconditions.checkNotNull(s3);
-        return new Builder(s3);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static final class Builder {
 
         private final Client s3;
+
         private String bucket;
+
         public String key;
+
         public ExecutorService executor;
+
         public long timeoutMs = TimeUnit.HOURS.toMillis(1);
+
         public Function<? super Request, ? extends Request> transform = x -> x;
+
         public int partSize = 5 * 1024 * 1024;
+
         public Retries<Void> retries;
 
         Builder(Client s3) {
@@ -44,9 +49,7 @@ public final class Multipart {
         }
 
         public Builder2 bucket(String bucket) {
-            Preconditions.checkNotNull(bucket, "bucket cannot be null");
-            this.bucket = bucket;
-            return new Builder2(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -59,9 +62,7 @@ public final class Multipart {
         }
 
         public Builder3 key(String key) {
-            Preconditions.checkNotNull(key, "key cannot be null");
-            b.key = key;
-            return new Builder3(b);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -74,111 +75,72 @@ public final class Multipart {
         }
 
         public Builder3 executor(ExecutorService executor) {
-            Preconditions.checkNotNull(executor, "executor cannot be null");
-            b.executor = executor;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder3 partTimeout(long duration, TimeUnit unit) {
-            Preconditions.checkArgument(duration > 0, "duration must be positive");
-            Preconditions.checkNotNull(unit, "unit cannot be null");
-            b.timeoutMs = unit.toMillis(duration);
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder3 partSize(int partSize) {
-            Preconditions.checkArgument(partSize >= 5 * 1024 * 1024);
-            b.partSize = partSize;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder3 partSizeMb(int partSizeMb) {
-            return partSize(partSizeMb * 1024 * 1024);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder3 maxAttemptsPerAction(int maxAttempts) {
-            Preconditions.checkArgument(maxAttempts >= 1, "maxAttempts must be at least one");
-            b.retries = b.retries.withMaxAttempts(maxAttempts);
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder3 retryInitialInterval(long duration, TimeUnit unit) {
-            Preconditions.checkArgument(duration >= 0, "duration cannot be negative");
-            Preconditions.checkNotNull(unit, "unit cannot be null");
-            b.retries = b.retries.withInitialIntervalMs(unit.toMillis(duration));
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder3 retryBackoffFactor(double factor) {
-            Preconditions.checkArgument(factor >= 0, "retryBackoffFactory cannot be negative");
-            b.retries = b.retries.withBackoffFactor(factor);
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder3 retryMaxInterval(long duration, TimeUnit unit) {
-            Preconditions.checkArgument(duration >= 0, "duration cannot be negative");
-            Preconditions.checkNotNull(unit, "unit cannot be null");
-            b.retries = b.retries.withMaxIntervalMs(unit.toMillis(duration));
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-        
+
         /**
          * Sets the level of randomness applied to the next retry interval. The next
          * calculated retry interval is multiplied by
          * {@code (1 - jitter * Math.random())}. A value of zero means no jitter, 1
          * means max jitter.
-         * 
+         *
          * @param jitter level of randomness applied to the retry interval
          * @return this
          */
         public Builder3 retryJitter(double jitter) {
-            Preconditions.checkArgument(jitter >= 0 && jitter <= 1, "jitter must be between 0 and 1");
-            b.retries = b.retries.withJitter(jitter);
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-
         public Builder3 transformCreateRequest(Function<? super Request, ? extends Request> transform) {
-            Preconditions.checkNotNull(transform, "transform cannot be null");
-            b.transform = transform;
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public void upload(byte[] bytes, int offset, int length) {
-            Preconditions.checkNotNull(bytes, "bytes cannot be null");
-            try (OutputStream out = outputStream()) {
-                out.write(bytes, offset, length);
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public void upload(byte[] bytes) {
-            upload(bytes, 0, bytes.length);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public void upload(File file) {
-            Preconditions.checkNotNull(file, "file cannot be null");
-            upload(() -> new BufferedInputStream(new FileInputStream(file)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public void upload(Callable<? extends InputStream> factory) {
-            Preconditions.checkNotNull(factory, "factory cannot be null");
-            try (InputStream in = factory.call(); MultipartOutputStream out = outputStream()) {
-                copy(in, out);
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public MultipartOutputStream outputStream() {
-            if (b.executor == null) {
-                b.executor = Executors.newCachedThreadPool();
-            }
-            return new MultipartOutputStream(b.s3, b.bucket, b.key, b.transform, b.executor, b.timeoutMs, b.retries,
-                    b.partSize);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 

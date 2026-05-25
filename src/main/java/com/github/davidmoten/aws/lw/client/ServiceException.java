@@ -3,7 +3,9 @@ package com.github.davidmoten.aws.lw.client;
 public final class ServiceException extends RuntimeException {
 
     private static final long serialVersionUID = -6963816822115090962L;
+
     private final int statusCode;
+
     private final String message;
 
     public ServiceException(int statusCode, String message) {
@@ -13,11 +15,10 @@ public final class ServiceException extends RuntimeException {
     }
 
     public int statusCode() {
-        return statusCode;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public String message() {
-        return message;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }
